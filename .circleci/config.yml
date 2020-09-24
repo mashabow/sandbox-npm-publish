@@ -10,8 +10,7 @@ jobs:
       tag: '12.18'
     steps:
       - checkout
-      - node/install-packages:
-          pkg-manager: yarn
+      # ... lint, test, build ...
       - run:
           name: Check whether package should be published
           command: |
@@ -26,9 +25,9 @@ jobs:
           name: Create a Git tag and push it to GitHub
           command: |
             version="v$(jq -r '.version' < package.json)"
-            git config --global user.name "John Doe"
-            git config --global user.email "john-doe@example.com"
-            git tag -a "${version}" -m "${version}"
+            git config user.name "John Doe"
+            git config user.email "john-doe@example.com"
+            git tag -a "${version}" -m "Release ${version}"
             git push --tags origin
 
 workflows:
