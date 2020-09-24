@@ -4,5 +4,10 @@
   "main": "index.js",
   "author": "Masaya Nakamura <mashabow@shiromoji.net>",
   "license": "MIT",
-  "files": ["index.js"]
+  "files": [
+    "index.js"
+  ],
+  "devDependencies": {
+    "none": "^1.0.0"
+  }
 }
