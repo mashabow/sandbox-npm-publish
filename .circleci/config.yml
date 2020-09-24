@@ -1,0 +1,40 @@
+version: 2.1
+
+orbs:
+  node: circleci/node@4.0.0
+
+jobs:
+  publish_if_needed:
+    executor:
+      name: node/default
+      tag: '12.18'
+    steps:
+      - checkout
+      - node/install-packages:
+          pkg-manager: yarn
+      - run:
+          name: Check whether package should be published
+          command: |
+            # publish の必要がなければ、ここでジョブを（失敗させずに）終了する
+            npx can-npm-publish --verbose || circleci-agent step halt
+      - deploy:
+          name: Publish package to npm
+          command: |
+            echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" > .npmrc
+            npm publish
+      - deploy:
+          name: Create a Git tag and push it to GitHub
+          command: |
+            version="v$(jq -r '.version' < package.json)"
+            git config --global user.name "John Doe"
+            git config --global user.email "john-doe@example.com"
+            git tag -a "${version}" -m "${version}"
+            git push --tags origin
+
+workflows:
+  publish:
+    jobs:
+      - publish_if_needed:
+          filters:
+            branches:
+              only: master
