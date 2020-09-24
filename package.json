@@ -3,5 +3,6 @@
   "version": "1.0.1",
   "main": "index.js",
   "author": "Masaya Nakamura <mashabow@shiromoji.net>",
-  "license": "MIT"
+  "license": "MIT",
+  "files": ["index.js"]
 }
