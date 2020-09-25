@@ -1,6 +1,6 @@
 {
   "name": "@mashabow/sandbox-npm-publish",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "main": "index.js",
   "author": "Masaya Nakamura <mashabow@shiromoji.net>",
   "license": "MIT",
